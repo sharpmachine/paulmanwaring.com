@@ -25,8 +25,6 @@
 <?php endif; ?>
 		</h1>
 		
-		<?php // query_posts('post_type=schedule'); ?>
-		
 <?php
 $today = date("Y_m_d");
 
