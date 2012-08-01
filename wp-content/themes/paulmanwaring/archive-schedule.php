@@ -25,14 +25,32 @@
 <?php endif; ?>
 		</h1>
 		
-		<?php query_posts('post_type=schedule'); ?>
+		<?php // query_posts('post_type=schedule'); ?>
 		
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> 
-<p>Posted on: <?php the_field('start_date'); ?></p>
+<?php
+$today = date("Y_m_d");
+
+$args = array(
+   'post_type' => 'schedule',
+   'posts_per_page' => 50,
+   'meta_key' => 'start_date',
+   'meta_compare' => '>=',
+   'meta_value' => $today,
+   'orderby' => 'meta_value',
+   'order' => 'ASC'	
+);
+$query = new WP_Query( $args );
+?>		
+		
+<?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?> 
 <?php
  
-// $date = DateTime::createFromFormat('Y_n_j', get_field('start_date')):
-
+$date = DateTime::createFromFormat('Y_m_d', get_field('start_date'));
+echo $date->format('j');
+echo "<br />";
+echo $date->format('M');
+echo "<br />";
+echo $date->format('Y');
 
  
 ?>
