@@ -1,11 +1,17 @@
 <?php get_header(); ?>
 
 		<section id="page" class="span8">
+		
+		<div class="row">	
 			
-		<?php $featured_query = new WP_Query('post_type=photo_gallery&showposts=1');
-			while ($featured_query->have_posts()) : $featured_query->the_post();
-			$do_not_duplicate = $post->ID 
-			 ?>
+		<?php
+			$selected_photo = $_GET["select"];
+		?>	
+		<h1><?php echo $selected_photo; ?>
+		<?php 
+			query_posts("post_type=photo_gallery&showposts=1&post_id=".$selected_photo);
+			while (have_posts()) : the_post(); 
+		?>
 			<h2>
 				<?php if( get_field('blog_post_title') ) : ?>	
 					<a href="<?php the_field('blog_post_title') ?>"><?php the_title() ?></a>
@@ -13,24 +19,47 @@
 					<?php the_title() ?>
 				<?php endif; ?>	
 			</h2>
-			<img src="<?php the_field('photo_image') ?>" alt="<?php the_title() ?>" />			
 			
-			<?php endwhile; ?>
+			<?php
+				echo wp_get_attachment_image( get_field('photo_image'), 'large' );
+			?> 
+	
+		
 
+					
+			
+		<?php endwhile; ?>
+		</div>
 
-			<?php 
-			 	query_posts('post_type=photo_gallery&showposts=8');
-				if(have_posts()) : while (have_posts()) : the_post();
+		<div class="row">
+			
+			<?php query_posts('post_type=photo_gallery&showposts=8'); ?>
+			
+
+			<?php if(have_posts()) : ?>
+			
+			<ul class="thumbnails">
+								
+			<?php while (have_posts()) : the_post();
 				if($post->ID == $do_not_duplicate ) continue; update_post_caches($posts);
 			?>
-			
-			<img src="<?php the_field('photo_image') ?>" alt="<?php the_title() ?>" />			
 
-			<?php endwhile; else :?>			
+			  <li class="span2">
+			    <a href="/photo-gallery?select=<?php echo the_id(); ?>" class="thumbnail">
+			      	<?php
+						echo wp_get_attachment_image( get_field('photo_image'), 'thumbnail' );
+					?>
+			    </a>
+			  </li>
+			
+			
+			<?php endwhile; ?>			
+			
+			</ul>
 				 
 			<?php endif; ?>
 
-		</section><!-- #page -->
-
-<?php get_sidebar(); ?>
+		</div>
+	</section><!-- #page -->
+		
 <?php get_footer(); ?>
