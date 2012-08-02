@@ -6,3 +6,4 @@ wp-config.php
 .htaccess
 sitemap.xml
 sitemap.xml.gz
+wp-content/uploads/*
