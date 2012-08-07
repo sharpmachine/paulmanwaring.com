@@ -32,6 +32,7 @@
 		<link rel="profile" href="http://gmpg.org/xfn/11" />
     	<!-- Le styles -->
     	<link href="<?php bloginfo('template_directory'); ?>/css/bootstrap.css" rel="stylesheet">
+    	<link href="<?php bloginfo('template_directory'); ?>/css/anythingslider.css" rel="stylesheet">
     	<style>
       	body {
         	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -49,12 +50,13 @@
 
 		<script src="<?php bloginfo('template_directory'); ?>/js/modernizr-1.7.min.js"></script>
 		<!--[if lte IE 8]><script src="<?php bloginfo('template_directory'); ?>/js/selectivizr-min.js"></script><![endif]-->
-	
+
 		<?php
 			if ( is_singular() && get_option( 'thread_comments' ) )
 				wp_enqueue_script( 'comment-reply' );
 			wp_head();
 			?>
+		<script src="<?php bloginfo('template_directory'); ?>/js/jquery.anythingslider.min.js"></script>				
 	</head>
 
 	<body <?php body_class(); ?>>
